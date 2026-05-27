@@ -126,3 +126,39 @@ WantedBy=multi-user.target
 Δεν υπάρχει πλέον ξεχωριστό `Ports` tab ή custom range scan στο κύριο UI.
 
 HTTPS health checks retry certificate-related failures without certificate verification, so internal/self-signed certificates do not incorrectly mark an otherwise reachable app as degraded. Set `ALLOW_INSECURE_HTTPS_CHECKS=false` in the service environment to disable that fallback.
+
+## Unified Docker NGINX gateway
+
+Production ingress is served by one Dockerized NGINX gateway:
+
+```text
+/home/kmh251/deployment/app_gateway
+container: app-gateway-nginx
+compose: /home/kmh251/deployment/app_gateway/compose.yml
+nginx: /home/kmh251/deployment/app_gateway/nginx.conf
+```
+
+Source-controlled templates live in:
+
+```text
+ops/app-gateway/compose.yml
+ops/app-gateway/nginx.conf
+```
+
+The older `kai-nginx` container was replaced by `app-gateway-nginx`. The system `nginx.service` is stopped and disabled. The KAI compose file no longer owns an nginx service.
+
+Included gateway routes:
+
+- `https://10.4.51.232` -> Server App Monitor
+- `https://kai-app` -> KAI
+- `https://kai-app/guacamole/` -> Guacamole
+- `https://chatty` -> Chatty
+- `https://dny-portal` / `https://dny` -> DNY Portal
+- `https://portal-search` / `https://search-agent` / `https://knowledgebase` -> Portal Search Agent
+- `https://net-agent` -> Net Agent
+
+Intentionally excluded from gateway config:
+
+- tickets
+- assets
+- csv-viewer

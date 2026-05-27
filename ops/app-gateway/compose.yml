@@ -1,0 +1,35 @@
+services:
+  nginx:
+    image: nginx:alpine
+    container_name: app-gateway-nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+      - /home/kmh251/deployment/kai_app/ssl:/etc/nginx/ssl:ro
+      - /home/kmh251/deployment/kai_app/guacamole_config/branding:/etc/nginx/guac-branding:ro
+    networks:
+      - kai_app_default
+      - chatty_default
+      - dny_portal_default
+      - net_agent_default
+      - portal_search_agent_default
+    restart: always
+
+networks:
+  kai_app_default:
+    external: true
+    name: kai_app_default
+  chatty_default:
+    external: true
+    name: chatty_default
+  dny_portal_default:
+    external: true
+    name: dny-portal_default
+  net_agent_default:
+    external: true
+    name: net-agent_default
+  portal_search_agent_default:
+    external: true
+    name: portal-search-agent_default
