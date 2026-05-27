@@ -162,7 +162,7 @@ Included gateway routes:
 - `https://portal-search` / `https://search-agent` / `https://knowledgebase` -> Portal Search Agent
 - `https://10.4.51.232:18443/` -> Portal Search Agent direct IP fallback for clients without local DNS/hosts aliases
 - `https://net-agent` -> Net Agent
-- `https://10.4.51.232:17443/` -> Net Agent direct IP fallback
+- `https://10.4.51.232:17443/app/` -> Net Agent direct IP fallback
 
 Intentionally excluded from gateway config:
 
