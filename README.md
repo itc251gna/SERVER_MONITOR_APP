@@ -117,6 +117,8 @@ WantedBy=multi-user.target
 
 Το dashboard εκτελεί μόνο commands που υπάρχουν στο `data/apps.json` ή μπήκαν από import/edit στο UI.
 
+HTTP/TCP health checks can use internal server-local endpoints such as `http://127.0.0.1:18085/health`. User-facing links should be stored separately in `publicUrl`, for example `https://10.4.51.232:18443/` for Portal Search Agent.
+
 ## Discovery reachability
 
 `Discovery` είναι inventory από το ίδιο το Linux μηχάνημα: processes, systemd services, Docker containers, PM2 apps και listening sockets.
@@ -155,6 +157,7 @@ Included gateway routes:
 - `https://chatty` -> Chatty
 - `https://dny-portal` / `https://dny` -> DNY Portal
 - `https://portal-search` / `https://search-agent` / `https://knowledgebase` -> Portal Search Agent
+- `https://10.4.51.232:18443/` -> Portal Search Agent direct IP fallback for clients without local DNS/hosts aliases
 - `https://net-agent` -> Net Agent
 
 Intentionally excluded from gateway config:

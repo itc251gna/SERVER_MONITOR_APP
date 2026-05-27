@@ -29,6 +29,7 @@ const emptyForm = {
   port: "",
   protocol: "http",
   healthPath: "/",
+  publicUrl: "",
   enabled: true,
   workingDirectory: "",
   commands: {
@@ -48,6 +49,7 @@ const labels = {
 };
 
 function buildUrl(app) {
+  if (app.publicUrl?.trim()) return app.publicUrl.trim();
   if (app.protocol === "tcp") return "";
   const path = app.healthPath || "/";
   return `${app.protocol}://${app.host}:${app.port}${path}`;
@@ -542,6 +544,7 @@ export default function App() {
                                     : `${app.protocol}://${app.host}:${app.port}${app.healthPath || "/"}`}
                                 </code>
                                 {status.httpStatus ? <small>HTTP {status.httpStatus}</small> : null}
+                                {app.publicUrl ? <small>Open URL: {app.publicUrl}</small> : null}
                                 {status.tlsWarning ? <small className="warning-text">{status.tlsWarning}</small> : null}
                                 {status.error ? <small className="error-text">{status.error}</small> : null}
                               </div>
@@ -883,6 +886,14 @@ export default function App() {
                   value={form.healthPath}
                   disabled={form.protocol === "tcp"}
                   onChange={(event) => updateForm("healthPath", event.target.value)}
+                />
+              </label>
+              <label>
+                Public URL
+                <input
+                  value={form.publicUrl}
+                  placeholder="https://10.4.51.232:18443/"
+                  onChange={(event) => updateForm("publicUrl", event.target.value)}
                 />
               </label>
             </div>

@@ -1,7 +1,7 @@
 param(
   [string]$Server = "10.4.51.232",
   [string]$User = "kmh251",
-  [string]$KeyPath = "$HOME\.ssh\kai_archive_github",
+  [string]$KeyPath = "",
   [string]$RemoteDir = "/home/kmh251/deployment/server_app_monitor",
   [string]$LegacyRemoteDir = "/opt/server-app-monitor",
   [string]$EnvFile = "/etc/server-app-monitor.env"
@@ -12,6 +12,18 @@ $ErrorActionPreference = "Stop"
 
 $Root = Resolve-Path "$PSScriptRoot\.."
 $Archive = Join-Path $env:TEMP "server-app-monitor.tgz"
+
+if (-not $KeyPath) {
+  $KeyCandidates = @(
+    "$HOME\.ssh\kai_archive_github",
+    "$HOME\.ssh\archived_old_ssh_keys_20260527_210751\kai_archive_github",
+    "$HOME\.ssh\archived_old_ssh_keys_20260527_210751\server_app_monitor_github_deploy"
+  )
+  $KeyPath = $KeyCandidates | Where-Object { Test-Path $_ } | Select-Object -First 1
+  if (-not $KeyPath) {
+    throw "No SSH key found. Pass -KeyPath explicitly."
+  }
+}
 
 Push-Location $Root
 try {

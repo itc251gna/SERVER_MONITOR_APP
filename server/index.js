@@ -66,6 +66,7 @@ function normalizeApp(input) {
       ? input.protocol
       : "http",
     healthPath: input.protocol === "tcp" ? "" : String(input.healthPath || "/").trim(),
+    publicUrl: String(input.publicUrl || "").trim(),
     enabled: input.enabled !== false,
     workingDirectory: String(input.workingDirectory || "").trim(),
     commands: {
@@ -101,6 +102,18 @@ function validateApp(input) {
     throw Object.assign(new Error("Health path must start with /."), {
       statusCode: 400
     });
+  }
+  if (normalized.publicUrl) {
+    try {
+      const publicUrl = new URL(normalized.publicUrl);
+      if (!["http:", "https:"].includes(publicUrl.protocol)) {
+        throw new Error("Unsupported protocol.");
+      }
+    } catch {
+      throw Object.assign(new Error("Public URL must be a valid http/https URL."), {
+        statusCode: 400
+      });
+    }
   }
   return normalized;
 }
