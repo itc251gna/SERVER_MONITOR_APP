@@ -153,12 +153,16 @@ Included gateway routes:
 
 - `https://10.4.51.232` -> Server App Monitor
 - `https://kai-app` -> KAI
+- `https://10.4.51.232:15443/` -> KAI direct IP fallback
 - `https://kai-app/guacamole/` -> Guacamole
 - `https://chatty` -> Chatty
+- `https://10.4.51.232:13443/` -> Chatty direct IP fallback
 - `https://dny-portal` / `https://dny` -> DNY Portal
+- `https://10.4.51.232:16443/` -> DNY Portal direct IP fallback
 - `https://portal-search` / `https://search-agent` / `https://knowledgebase` -> Portal Search Agent
 - `https://10.4.51.232:18443/` -> Portal Search Agent direct IP fallback for clients without local DNS/hosts aliases
 - `https://net-agent` -> Net Agent
+- `https://10.4.51.232:17443/` -> Net Agent direct IP fallback
 
 Intentionally excluded from gateway config:
 
