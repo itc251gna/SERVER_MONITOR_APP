@@ -117,7 +117,7 @@ WantedBy=multi-user.target
 
 Το dashboard εκτελεί μόνο commands που υπάρχουν στο `data/apps.json` ή μπήκαν από import/edit στο UI.
 
-HTTP/TCP health checks can use internal server-local endpoints such as `http://127.0.0.1:18085/health`. User-facing links should be stored separately in `publicUrl`, for example `https://10.4.51.232:18443/` for Portal Search Agent.
+HTTP/TCP health checks can use internal server-local endpoints such as `http://127.0.0.1:18085/health`. User-facing links should be stored separately in `publicUrl`, for example `https://knowledgebase-search.251gh.local/` for Portal Search Agent.
 
 ## Discovery reachability
 
@@ -151,18 +151,13 @@ The older `kai-nginx` container was replaced by `app-gateway-nginx`. The system 
 
 Included gateway routes:
 
-- `https://10.4.51.232` -> Server App Monitor
-- `https://kai-app` -> KAI
-- `https://10.4.51.232:15443/` -> KAI direct IP fallback
-- `https://kai-app/guacamole/` -> Guacamole
-- `https://chatty` -> Chatty
-- `https://10.4.51.232:13443/` -> Chatty direct IP fallback
-- `https://dny-portal` / `https://dny` -> DNY Portal
-- `https://10.4.51.232:16443/` -> DNY Portal direct IP fallback
-- `https://portal-search` / `https://search-agent` / `https://knowledgebase` -> Portal Search Agent
-- `https://10.4.51.232:18443/` -> Portal Search Agent direct IP fallback for clients without local DNS/hosts aliases
-- `https://net-agent` -> Net Agent
-- `https://10.4.51.232:17443/app/` -> Net Agent direct IP fallback
+- default `https://<gateway-host>` -> Server App Monitor
+- `https://kai-app.251gh.local` -> KAI
+- `https://kai-app.251gh.local/guacamole/` -> Guacamole
+- `https://chatbox.251gh.local` -> Chatty
+- `https://dny-portal.251gh.local` -> DNY Portal
+- `https://knowledgebase-search.251gh.local` -> Portal Search Agent
+- `https://net-agent.251gh.local` -> Net Agent
 
 Intentionally excluded from gateway config:
 

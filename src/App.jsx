@@ -892,7 +892,7 @@ export default function App() {
                 Public URL
                 <input
                   value={form.publicUrl}
-                  placeholder="https://10.4.51.232:18443/"
+                  placeholder="https://knowledgebase-search.251gh.local/"
                   onChange={(event) => updateForm("publicUrl", event.target.value)}
                 />
               </label>
