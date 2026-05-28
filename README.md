@@ -27,11 +27,33 @@ This runs:
 
 ## Deploy to production
 
+Production deploy is intentionally guarded. By default the script only deploys when:
+
+- the current branch is `main`
+- the worktree is clean, including untracked files
+- local `HEAD` matches `origin/main`
+- local build and syntax checks pass
+
+Run a production preflight without uploading anything:
+
+```powershell
+.\scripts\deploy-production.ps1 -ValidateOnly
+```
+
+Then deploy the exact validated commit:
+
 ```powershell
 .\scripts\deploy-production.ps1
 ```
 
 The deploy script packages the current workspace, uploads it to `10.4.51.232`, installs it under `/home/kmh251/deployment/server_app_monitor`, runs `npm ci`, builds the UI, and restarts `server-app-monitor.service`.
+
+Emergency override flags exist but should be rare and documented in the change notes:
+
+```powershell
+.\scripts\deploy-production.ps1 -SkipRemoteCheck
+.\scripts\deploy-production.ps1 -SkipGitGuard
+```
 
 For GitHub, use SSH keys or a Personal Access Token. GitHub no longer accepts account passwords for Git pushes over HTTPS.
 
