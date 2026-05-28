@@ -151,7 +151,7 @@ The older `kai-nginx` container was replaced by `app-gateway-nginx`. The system 
 
 Included gateway routes:
 
-- default `https://<gateway-host>` -> Server App Monitor
+- `https://linuxsrv01-monitor.251gh.local` -> Server App Monitor
 - `https://kai-app.251gh.local` -> KAI
 - `https://kai-app.251gh.local/guacamole/` -> Guacamole
 - `https://chatbox.251gh.local` -> Chatty
